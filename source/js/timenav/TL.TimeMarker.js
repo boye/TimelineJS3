@@ -22,11 +22,13 @@ TL.TimeMarker = TL.Class.extend({
 			line_right: {},
 			content: {},
 			text: {},
+			button: {},
 			media: {},
 		};
 
 		// Components
 		this._text			= {};
+		this._button		= {};
 
 		// State
 		this._state = {
@@ -51,7 +53,9 @@ TL.TimeMarker = TL.Class.extend({
 			},
 			text: {
 				headline: 		"",
-				text: 			""
+				text: 			"",
+				button:			"",
+				button_url:		"",
 			},
 			media: 				null
 		};
@@ -274,12 +278,16 @@ TL.TimeMarker = TL.Class.extend({
 		// Text
 		this._el.text					= TL.Dom.create("div", "tl-timemarker-text", this._el.content);
 		this._text						= TL.Dom.create("h2", "tl-headline", this._el.text);
+		this._button					= TL.Dom.create("button", "tl-button", this._el.content);
 		if (this.data.text.headline && this.data.text.headline != "") {
 			this._text.innerHTML		= TL.Util.unlinkify(this.data.text.headline);
 		} else if (this.data.text.text && this.data.text.text != "") {
 			this._text.innerHTML		= TL.Util.unlinkify(this.data.text.text);
 		} else if (this.data.media && this.data.media.caption && this.data.media.caption != "") {
 			this._text.innerHTML		= TL.Util.unlinkify(this.data.media.caption);
+		} else if (this.data.text.button && this.data.text.button_url && this.data.text.button_url != "") {
+			this._button.innerHTML		= TL.Util.unlinkify(this.data.text.button);
+			this._button.setAttribute('href', this.data.text.button_url);
 		}
 
 
